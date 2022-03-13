@@ -1,6 +1,9 @@
 name = "pbkdf2"
-description = "PBKDF2 in Ada"
+description = "PBKDF2 implemented in Ada"
 version = "1.0.0"
+website = "https://github.com/AntonMeep/pbkdf2"
+licenses = "ISC"
+tags = ["cryptography", "security", "pbkdf2"]
 
 authors = ["Anton Fediushin"]
 maintainers = ["Anton Fediushin <imantonmeep@gmail.com>"]
