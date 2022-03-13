@@ -1,0 +1,19 @@
+name = "pbkdf2_tests"
+description = "Test suite for PBKDF2"
+version = "0.0.0"
+
+authors = ["Anton Fediushin"]
+maintainers = ["Anton Fediushin <imantonmeep@gmail.com>"]
+maintainers-logins = ["AntonMeep"]
+
+executables = ["pbkdf2_tests"]
+
+[configuration]
+disabled = true
+
+[[depends-on]]
+aunit = "^22.0.0"
+pbkdf2 = "*"
+
+[[pins]]
+pbkdf2 = { path = "../" }
