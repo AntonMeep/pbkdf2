@@ -94,7 +94,8 @@ package body PBKDF2 is
 
    function PBKDF2_HMAC_SHA1
      (Password           : String; Salt : String; Iterations : Positive;
-      Derived_Key_Length : Stream_Element_Offset := GNAT.SHA1.Hash_Length)
+      Derived_Key_Length : Stream_Element_Offset :=
+        Stream_Element_Offset (GNAT.SHA1.Hash_Length))
       return Stream_Element_Array
    is
       function Implementation is new PBKDF2_Implementation
@@ -109,7 +110,8 @@ package body PBKDF2 is
 
    function PBKDF2_HMAC_SHA256
      (Password           : String; Salt : String; Iterations : Positive;
-      Derived_Key_Length : Stream_Element_Offset := GNAT.SHA256.Hash_Length)
+      Derived_Key_Length : Stream_Element_Offset :=
+        Stream_Element_Offset (GNAT.SHA256.Hash_Length))
       return Stream_Element_Array
    is
       function Implementation is new PBKDF2_Implementation
@@ -125,7 +127,8 @@ package body PBKDF2 is
 
    function PBKDF2_HMAC_SHA512
      (Password           : String; Salt : String; Iterations : Positive;
-      Derived_Key_Length : Stream_Element_Offset := GNAT.SHA512.Hash_Length)
+      Derived_Key_Length : Stream_Element_Offset :=
+        Stream_Element_Offset (GNAT.SHA512.Hash_Length))
       return Stream_Element_Array
    is
       function Implementation is new PBKDF2_Implementation
