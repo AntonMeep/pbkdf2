@@ -103,7 +103,7 @@ package body PBKDF2 is
          HMAC_Init        => GNAT.SHA1.HMAC_Initial_Context,
          HMAC_Update_Salt => GNAT.SHA1.Update,
          HMAC_Update_Data => GNAT.SHA1.Update, HMAC_Final => GNAT.SHA1.Digest,
-         Hash_Length      => GNAT.SHA1.Hash_Length);
+         Hash_Length      => Stream_Element_Offset (GNAT.SHA1.Hash_Length));
    begin
       return Implementation (Password, Salt, Iterations, Derived_Key_Length);
    end PBKDF2_HMAC_SHA1;
@@ -120,7 +120,7 @@ package body PBKDF2 is
          HMAC_Update_Salt => GNAT.SHA256.Update,
          HMAC_Update_Data => GNAT.SHA256.Update,
          HMAC_Final       => GNAT.SHA256.Digest,
-         Hash_Length      => GNAT.SHA256.Hash_Length);
+         Hash_Length      => Stream_Element_Offset (GNAT.SHA256.Hash_Length));
    begin
       return Implementation (Password, Salt, Iterations, Derived_Key_Length);
    end PBKDF2_HMAC_SHA256;
@@ -137,7 +137,7 @@ package body PBKDF2 is
          HMAC_Update_Salt => GNAT.SHA512.Update,
          HMAC_Update_Data => GNAT.SHA512.Update,
          HMAC_Final       => GNAT.SHA512.Digest,
-         Hash_Length      => GNAT.SHA512.Hash_Length);
+         Hash_Length      => Stream_Element_Offset (GNAT.SHA512.Hash_Length));
    begin
       return Implementation (Password, Salt, Iterations, Derived_Key_Length);
    end PBKDF2_HMAC_SHA512;
