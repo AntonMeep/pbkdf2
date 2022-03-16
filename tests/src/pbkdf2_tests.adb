@@ -1,11 +1,13 @@
-pragma Ada_2020;
+with AUnit.Reporter.Text;
+with AUnit.Run;
 
-with Ada.Text_IO; use Ada.Text_IO;
-with PBKDF2; use PBKDF2;
+with PBKDF2.Tests;
 
 procedure PBKDF2_Tests is
+   procedure Runner is new AUnit.Run.Test_Runner (PBKDF2.Tests.Suite);
+
+   Reporter : AUnit.Reporter.Text.Text_Reporter;
 begin
-   Put_Line(PBKDF2_HMAC_SHA1("password", "salt", 1)'Image);
-   Put_Line(PBKDF2_HMAC_SHA1("password", "salt", 4096)'Image);
-   Put_Line(PBKDF2_HMAC_SHA1("passwordPASSWORDpassword", "saltSALTsaltSALTsaltSALTsaltSALTsalt", 4096, 25)'Image);
+   Reporter.Set_Use_ANSI_Colors (True);
+   Runner (Reporter);
 end PBKDF2_Tests;
