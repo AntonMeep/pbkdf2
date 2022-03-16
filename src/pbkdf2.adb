@@ -2,19 +2,30 @@ pragma Ada_2012;
 
 with Interfaces;
 
+with System;
+
 package body PBKDF2 is
    function Write_Big_Endian
      (Input : Stream_Element_Offset) return Stream_Element_Array
    is
       use Interfaces;
+      use System;
 
       Int : constant Unsigned_32 := Unsigned_32 (Input);
    begin
-      return
-        (0 => Stream_Element (Shift_Right (Int, 24) and 16#FF#),
-         1 => Stream_Element (Shift_Right (Int, 16) and 16#FF#),
-         2 => Stream_Element (Shift_Right (Int, 8) and 16#FF#),
-         3 => Stream_Element (Int and 16#FF#));
+      if Default_Bit_Order = High_Order_First then
+         return
+         (0 => Stream_Element (Int and 16#FF#),
+            1 => Stream_Element (Shift_Right (Int, 8) and 16#FF#),
+            2 => Stream_Element (Shift_Right (Int, 16) and 16#FF#),
+            3 => Stream_Element (Shift_Right (Int, 24) and 16#FF#));
+      else
+         return
+         (0 => Stream_Element (Shift_Right (Int, 24) and 16#FF#),
+            1 => Stream_Element (Shift_Right (Int, 16) and 16#FF#),
+            2 => Stream_Element (Shift_Right (Int, 8) and 16#FF#),
+            3 => Stream_Element (Int and 16#FF#));
+      end if;
    end Write_Big_Endian;
 
    procedure XOR_In_Place
