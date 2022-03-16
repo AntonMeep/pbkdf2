@@ -15,13 +15,13 @@ package body PBKDF2 is
    begin
       if Default_Bit_Order = High_Order_First then
          return
-         (0 => Stream_Element (Int and 16#FF#),
+           (0 => Stream_Element (Int and 16#FF#),
             1 => Stream_Element (Shift_Right (Int, 8) and 16#FF#),
             2 => Stream_Element (Shift_Right (Int, 16) and 16#FF#),
             3 => Stream_Element (Shift_Right (Int, 24) and 16#FF#));
       else
          return
-         (0 => Stream_Element (Shift_Right (Int, 24) and 16#FF#),
+           (0 => Stream_Element (Shift_Right (Int, 24) and 16#FF#),
             1 => Stream_Element (Shift_Right (Int, 16) and 16#FF#),
             2 => Stream_Element (Shift_Right (Int, 8) and 16#FF#),
             3 => Stream_Element (Int and 16#FF#));
