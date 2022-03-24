@@ -11,7 +11,3 @@ maintainers-logins = ["AntonMeep"]
 
 [[depends-on]]
 hmac = "^1.0.0"
-
-
-[[pins]]
-hmac = {path = "../hmac"}
