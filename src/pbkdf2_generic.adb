@@ -54,9 +54,9 @@ package body PBKDF2_Generic is
 
             declare
                Bytes_To_Copy : constant Index :=
-                    Index'Min (
-                       Index'Min (Derived_Key_Length, Hash_Length),
-                       Result'Last - Current + 1);
+                 Index'Min
+                   (Index'Min (Derived_Key_Length, Hash_Length),
+                    Result'Last - Current + 1);
             begin
                Result (Current .. Current + Bytes_To_Copy - 1) :=
                  Temporary (0 .. Bytes_To_Copy - 1);
