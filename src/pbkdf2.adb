@@ -45,7 +45,7 @@ package body PBKDF2 is
       with procedure HMAC_Update_Salt (Ctx : in out Context; Salt : String);
       with procedure HMAC_Update_Data
         (Ctx : in out Context; Data : Stream_Element_Array);
-      with function HMAC_Final (Ctx : Context) return Stream_Element_Array;
+      with function HMAC_Final (Ctx : in out Context) return Stream_Element_Array;
 
       Hash_Length : Stream_Element_Offset;
    function PBKDF2_Implementation
@@ -92,53 +92,48 @@ package body PBKDF2 is
       return Result;
    end PBKDF2_Implementation;
 
-   function PBKDF2_HMAC_SHA1
+   function PBKDF2_HMAC_SHA_1
      (Password           : String; Salt : String; Iterations : Positive;
-      Derived_Key_Length : Stream_Element_Offset :=
-        Stream_Element_Offset (GNAT.SHA1.Hash_Length))
+      Derived_Key_Length : Stream_Element_Offset := SHA1.Digest_Length)
       return Stream_Element_Array
    is
       function Implementation is new PBKDF2_Implementation
-        (Context          => GNAT.SHA1.Context,
-         HMAC_Init        => GNAT.SHA1.HMAC_Initial_Context,
-         HMAC_Update_Salt => GNAT.SHA1.Update,
-         HMAC_Update_Data => GNAT.SHA1.Update, HMAC_Final => GNAT.SHA1.Digest,
-         Hash_Length      => Stream_Element_Offset (GNAT.SHA1.Hash_Length));
+        (Context          => HMAC.HMAC_SHA_1.Context,
+         HMAC_Init        => HMAC.HMAC_SHA_1.Initialize,
+         HMAC_Update_Salt => HMAC.HMAC_SHA_1.Update,
+         HMAC_Update_Data => HMAC.HMAC_SHA_1.Update, HMAC_Final => HMAC.HMAC_SHA_1.Finalize,
+         Hash_Length      => SHA1.Digest_Length);
    begin
       return Implementation (Password, Salt, Iterations, Derived_Key_Length);
-   end PBKDF2_HMAC_SHA1;
+   end PBKDF2_HMAC_SHA_1;
 
-   function PBKDF2_HMAC_SHA256
+   function PBKDF2_HMAC_SHA_256
      (Password           : String; Salt : String; Iterations : Positive;
-      Derived_Key_Length : Stream_Element_Offset :=
-        Stream_Element_Offset (GNAT.SHA256.Hash_Length))
+      Derived_Key_Length : Stream_Element_Offset := SHA2.SHA_256.Digest_Length)
       return Stream_Element_Array
    is
       function Implementation is new PBKDF2_Implementation
-        (Context          => GNAT.SHA256.Context,
-         HMAC_Init        => GNAT.SHA256.HMAC_Initial_Context,
-         HMAC_Update_Salt => GNAT.SHA256.Update,
-         HMAC_Update_Data => GNAT.SHA256.Update,
-         HMAC_Final       => GNAT.SHA256.Digest,
-         Hash_Length      => Stream_Element_Offset (GNAT.SHA256.Hash_Length));
+        (Context          => HMAC.HMAC_SHA_256.Context,
+         HMAC_Init        => HMAC.HMAC_SHA_256.Initialize,
+         HMAC_Update_Salt => HMAC.HMAC_SHA_256.Update,
+         HMAC_Update_Data => HMAC.HMAC_SHA_256.Update, HMAC_Final => HMAC.HMAC_SHA_256.Finalize,
+         Hash_Length      => SHA2.SHA_256.Digest_Length);
    begin
       return Implementation (Password, Salt, Iterations, Derived_Key_Length);
-   end PBKDF2_HMAC_SHA256;
+   end PBKDF2_HMAC_SHA_256;
 
-   function PBKDF2_HMAC_SHA512
+   function PBKDF2_HMAC_SHA_512
      (Password           : String; Salt : String; Iterations : Positive;
-      Derived_Key_Length : Stream_Element_Offset :=
-        Stream_Element_Offset (GNAT.SHA512.Hash_Length))
+      Derived_Key_Length : Stream_Element_Offset := SHA2.SHA_512.Digest_Length)
       return Stream_Element_Array
    is
       function Implementation is new PBKDF2_Implementation
-        (Context          => GNAT.SHA512.Context,
-         HMAC_Init        => GNAT.SHA512.HMAC_Initial_Context,
-         HMAC_Update_Salt => GNAT.SHA512.Update,
-         HMAC_Update_Data => GNAT.SHA512.Update,
-         HMAC_Final       => GNAT.SHA512.Digest,
-         Hash_Length      => Stream_Element_Offset (GNAT.SHA512.Hash_Length));
+        (Context          => HMAC.HMAC_SHA_512.Context,
+         HMAC_Init        => HMAC.HMAC_SHA_512.Initialize,
+         HMAC_Update_Salt => HMAC.HMAC_SHA_512.Update,
+         HMAC_Update_Data => HMAC.HMAC_SHA_512.Update, HMAC_Final => HMAC.HMAC_SHA_512.Finalize,
+         Hash_Length      => SHA2.SHA_512.Digest_Length);
    begin
       return Implementation (Password, Salt, Iterations, Derived_Key_Length);
-   end PBKDF2_HMAC_SHA512;
+   end PBKDF2_HMAC_SHA_512;
 end PBKDF2;

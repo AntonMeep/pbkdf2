@@ -8,3 +8,10 @@ tags = ["cryptography", "security", "pbkdf2"]
 authors = ["Anton Fediushin"]
 maintainers = ["Anton Fediushin <imantonmeep@gmail.com>"]
 maintainers-logins = ["AntonMeep"]
+
+[[depends-on]]
+hmac = "^1.0.0"
+
+
+[[pins]]
+hmac = {path = "../hmac"}
