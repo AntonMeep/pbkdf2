@@ -138,16 +138,14 @@ package body PBKDF2.Tests is
           16#1c#, 16#4e#, 16#2a#, 16#1f#, 16#b8#, 16#dd#, 16#53#, 16#e1#,
           16#c6#, 16#35#, 16#51#, 16#8c#, 16#7d#, 16#ac#, 16#47#, 16#e9#),
          "Test 6");
-      -- TODO: Empty password (Hmac initial context key) are not allowed by the
-      -- GNAT.SHA* implementations
-      -- Assert
-      --   (PBKDF2_HMAC_SHA_256
-      --      ("", "salt", Iterations => 1_024, Derived_Key_Length => 32) =
-      --    (16#9e#, 16#83#, 16#f2#, 16#79#, 16#c0#, 16#40#, 16#f2#, 16#a1#,
-      --     16#1a#, 16#a4#, 16#a0#, 16#2b#, 16#24#, 16#c4#, 16#18#, 16#f2#,
-      --     16#d3#, 16#cb#, 16#39#, 16#56#, 16#0c#, 16#96#, 16#27#, 16#fa#,
-      --     16#4f#, 16#47#, 16#e3#, 16#bc#, 16#c2#, 16#89#, 16#7c#, 16#3d#),
-      --    "Test 7");
+      Assert
+        (PBKDF2_HMAC_SHA_256
+           ("", "salt", Iterations => 1_024, Derived_Key_Length => 32) =
+         (16#9e#, 16#83#, 16#f2#, 16#79#, 16#c0#, 16#40#, 16#f2#, 16#a1#,
+          16#1a#, 16#a4#, 16#a0#, 16#2b#, 16#24#, 16#c4#, 16#18#, 16#f2#,
+          16#d3#, 16#cb#, 16#39#, 16#56#, 16#0c#, 16#96#, 16#27#, 16#fa#,
+          16#4f#, 16#47#, 16#e3#, 16#bc#, 16#c2#, 16#89#, 16#7c#, 16#3d#),
+         "Test 7");
       Assert
         (PBKDF2_HMAC_SHA_256
            ("password", "", Iterations => 1_024, Derived_Key_Length => 32) =
