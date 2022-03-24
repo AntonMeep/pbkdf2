@@ -19,12 +19,14 @@ is
 
    function PBKDF2_HMAC_SHA_1
      (Password           : String; Salt : String; Iterations : Positive;
-      Derived_Key_Length : Stream_Element_Offset)
+      Derived_Key_Length : Stream_Element_Offset := SHA1.Digest_Length)
       return Stream_Element_Array renames
      PBKDF2_HMAC_SHA_1_Package.PBKDF2;
+
    function PBKDF2_HMAC_SHA_1
-     (Password   : Stream_Element_Array; Salt : Stream_Element_Array;
-      Iterations : Positive; Derived_Key_Length : Stream_Element_Offset)
+     (Password           : Stream_Element_Array; Salt : Stream_Element_Array;
+      Iterations         : Positive;
+      Derived_Key_Length : Stream_Element_Offset := SHA1.Digest_Length)
       return Stream_Element_Array renames
      PBKDF2_HMAC_SHA_1_Package.PBKDF2;
 
@@ -39,12 +41,14 @@ is
 
    function PBKDF2_HMAC_SHA_256
      (Password           : String; Salt : String; Iterations : Positive;
-      Derived_Key_Length : Stream_Element_Offset)
+      Derived_Key_Length : Stream_Element_Offset := SHA2.SHA_256.Digest_Length)
       return Stream_Element_Array renames
      PBKDF2_HMAC_SHA_256_Package.PBKDF2;
+
    function PBKDF2_HMAC_SHA_256
-     (Password   : Stream_Element_Array; Salt : Stream_Element_Array;
-      Iterations : Positive; Derived_Key_Length : Stream_Element_Offset)
+     (Password           : Stream_Element_Array; Salt : Stream_Element_Array;
+      Iterations         : Positive;
+      Derived_Key_Length : Stream_Element_Offset := SHA2.SHA_256.Digest_Length)
       return Stream_Element_Array renames
      PBKDF2_HMAC_SHA_256_Package.PBKDF2;
 
@@ -59,12 +63,14 @@ is
 
    function PBKDF2_HMAC_SHA_512
      (Password           : String; Salt : String; Iterations : Positive;
-      Derived_Key_Length : Stream_Element_Offset)
+      Derived_Key_Length : Stream_Element_Offset := SHA2.SHA_512.Digest_Length)
       return Stream_Element_Array renames
      PBKDF2_HMAC_SHA_512_Package.PBKDF2;
+
    function PBKDF2_HMAC_SHA_512
-     (Password   : Stream_Element_Array; Salt : Stream_Element_Array;
-      Iterations : Positive; Derived_Key_Length : Stream_Element_Offset)
+     (Password           : Stream_Element_Array; Salt : Stream_Element_Array;
+      Iterations         : Positive;
+      Derived_Key_Length : Stream_Element_Offset := SHA2.SHA_512.Digest_Length)
       return Stream_Element_Array renames
      PBKDF2_HMAC_SHA_512_Package.PBKDF2;
 end PBKDF2;
