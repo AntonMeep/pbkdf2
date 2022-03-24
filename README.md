@@ -5,5 +5,6 @@ pbkdf2
 =======
 
 This is a PBKDF2 algorithm implemented in Ada, tested against RFC6070 test
-vectors. Currently PBKDF2_HMAC_SHA1, PBKDF2_HMAC_SHA256 and PBKDF2_HMAC_SHA512
-are implemented.
+vectors. Currently PBKDF2_HMAC_SHA_1, PBKDF2_HMAC_SHA_256 and PBKDF2_HMAC_SHA_512
+are implemented using respective hmac, sha{1,2} crates. It is easy to use the
+generic interface to define new PBKDF2 functions for other hash functions.
