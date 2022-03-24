@@ -12,9 +12,11 @@ package body PBKDF2_Generic is
       Password_Buffer : Element_Array
         (Index (Password'First) .. Index (Password'Last));
       for Password_Buffer'Address use Password'Address;
+      pragma Import (Ada, Password_Buffer);
 
       Salt_Buffer : Element_Array (Index (Salt'First) .. Index (Salt'Last));
       for Salt_Buffer'Address use Salt'Address;
+      pragma Import (Ada, Salt_Buffer);
    begin
       return
         PBKDF2 (Password_Buffer, Salt_Buffer, Iterations, Derived_Key_Length);
