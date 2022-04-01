@@ -10,6 +10,6 @@ maintainers = ["Anton Fediushin <imantonmeep@gmail.com>"]
 maintainers-logins = ["AntonMeep"]
 
 [[depends-on]]
-hmac = "^1.0.0"
-sha1 = "^1.0.1"
-sha2 = "^1.1.0"
+hmac = "^2.0.0"
+sha1 = "^2.0.0"
+sha2 = "^2.0.0"

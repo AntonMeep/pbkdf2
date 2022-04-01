@@ -9,8 +9,7 @@ generic
    with function Hash_Initialize (Input : Element_Array) return Hash_Context;
    with procedure Hash_Update
      (Ctx : in out Hash_Context; Input : Element_Array);
-   with function Hash_Finalize
-     (Ctx : in out Hash_Context) return Element_Array;
+   with function Hash_Finalize (Ctx : Hash_Context) return Element_Array;
 package PBKDF2_Generic with
    Pure,
    Preelaborate
