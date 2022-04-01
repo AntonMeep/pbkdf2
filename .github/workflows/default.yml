@@ -1,0 +1,87 @@
+name: Default
+
+on:
+  push:
+    branches: [ master ]
+  release:
+    types: [created]
+
+jobs:
+  build:
+    name: Build on ${{matrix.os}} using ${{matrix.compiler}}
+    runs-on: ${{matrix.os}}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        compiler: [community, fsf]
+        exclude:
+          - os: windows-latest
+            compiler: fsf
+          - os: macos-latest
+            compiler: fsf
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Update system repositories
+      if: matrix.os == 'ubuntu-latest'
+      run: sudo apt update
+
+    - name: Set up GNAT toolchain (FSF)
+      if: matrix.compiler == 'fsf'
+      uses: ada-actions/toolchain@ce2021
+      with:
+        distrib: fsf # faster install?
+
+    - name: Set up GNAT toolchain (Community)
+      if: matrix.compiler == 'community'
+      uses: ada-actions/toolchain@ce2020
+      with:
+        distrib: community
+
+    - name: Install Alire
+      uses: alire-project/setup-alire@v1
+      with:
+        toolchain: "gnat_external"
+
+    - name: Build debug, static
+      run: >
+        alr clean &&
+        alr build
+        -XLIBRARY_TYPE=static
+        -XPBKDF2_COMPILE_CHECKS=enabled
+        -XPBKDF2_RUNTIME_CHECKS=enabled
+        -XPBKDF2_STYLE_CHECKS=enabled
+        -XPBKDF2_CONTRACTS=enabled
+        -XPBKDF2_BUILD_MODE=debug
+
+    - name: Build debug, relocatable
+      run: >
+        alr clean &&
+        alr build
+        -XLIBRARY_TYPE=relocatable
+        -XPBKDF2_COMPILE_CHECKS=enabled
+        -XPBKDF2_RUNTIME_CHECKS=enabled
+        -XPBKDF2_STYLE_CHECKS=enabled
+        -XPBKDF2_CONTRACTS=enabled
+        -XPBKDF2_BUILD_MODE=debug
+
+    - name: Build tests
+      run: >
+        cd tests &&
+        alr clean &&
+        alr build
+        -XLIBRARY_TYPE=static
+        -XPBKDF2_COMPILE_CHECKS=enabled
+        -XPBKDF2_RUNTIME_CHECKS=enabled
+        -XPBKDF2_STYLE_CHECKS=enabled
+        -XPBKDF2_CONTRACTS=enabled
+        -XPBKDF2_BUILD_MODE=debug
+        -XPBKDF2_TESTS_COMPILE_CHECKS=enabled
+        -XPBKDF2_TESTS_RUNTIME_CHECKS=enabled
+        -XPBKDF2_TESTS_STYLE_CHECKS=enabled
+        -XPBKDF2_TESTS_CONTRACTS=enabled
+        -XPBKDF2_TESTS_BUILD_MODE=debug
+
+    - name: Run tests
+      run: ./tests/bin/pbkdf2_tests
